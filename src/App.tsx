@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   HStack,
   Input,
@@ -11,6 +12,7 @@ import {
 import { camelCase, pascalCase, paramCase } from "change-case";
 import { useCallback, useEffect, useState } from "react";
 import localforage from "localforage";
+import Editor from "@monaco-editor/react";
 
 export default function App() {
   const [items, setItems] = useState<string[]>([]);
@@ -65,16 +67,20 @@ export default function App() {
     <VStack>
       <Text>
         Available case:{" "}
-        <Text fontWeight="bold">[value] [pascal] [kebab] [camel]</Text>
+        <Text fontWeight="bold" as="span">
+          [value] [pascal] [kebab] [camel]
+        </Text>
       </Text>
       <HStack width="90vw">
+        <Box w="100%" borderWidth="1px" borderRadius="lg" p={1}>
+          <Editor height="50vh" value={input} onChange={saveInput} />
+        </Box>
         <Textarea
           height="50vh"
-          value={input}
           fontFamily="monospace"
-          onChange={(e) => saveInput(e.currentTarget.value)}
+          value={output}
+          onChange={() => {}}
         />
-        <Textarea height="50vh" fontFamily="monospace" value={output} />
       </HStack>
 
       <VStack>
